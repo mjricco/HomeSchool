@@ -1,0 +1,19 @@
+Hi! We're doing arithmetic today! Let's start easy...
+--Q What's one more than seven?
+8
+--Q What's one more than eleven?
+12
+This can also be written as 11 + 1 = 12.
+--Q What is 5 + 1?
+6
+Good job!
+--G
+--Q What is two more than four?
+6
+This can also be written as 2 + 4.
+--Q What is 2 + 3?
+5
+Wow! You're so good! Can you do this last question?
+--Q What is 3 + 3?
+6
+Amazing work!
