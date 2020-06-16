@@ -1,8 +1,16 @@
-print "Content-Type: text/plain"
-print ""
 import os.path
-from os import path
 import random
+
+def save_values(path, file_name, values):
+    """saves provide files to file"""
+    f=open(os.path.join(path, file_name),"w+")
+    i = 0
+    while i < len(values):
+        Message = str(values[i]) + "\n"
+        f.write(Message)
+        i = i + 1
+    f.close()
+
 gamepath = os.path.dirname(__file__)
 lessonpath = os.path.join(gamepath, "Lessons")
 Lessons = []
@@ -15,7 +23,7 @@ while True:
     print("HomeSchool")
     while True:
         School = input("What school are you in? If you would like to create a new school, type Create. To quit the application, type Quit.").lower()
-        if path.exists(School) and School != "lessons":
+        if os.path.exists(School) and School != "lessons":
             break
         elif School == "create":
             NewSchool = input("What is your school's name?").lower()
@@ -95,49 +103,34 @@ while True:
         print("Wrong password.")
     while True:
         if Students.index(User) == 0:
-            print("Welcome back", User, ". To add a student, type Add Student. To delete a student, type Delete Student. To add an assignment, type Add Assignment. To view assignment progress, type Assignments. To view recent activity, type Activity. To find and edit a student's password, type Find Password. To change a student's points, type Change Points. To add student messages, type Talk. To create a lesson, type Create Lesson. To log out, type Quit.")
+            print("Welcome back", User, ".")
+            print("* To add a student, type Add Student.")
+            print("* To delete a student, type Delete Student.") 
+            print("* To add an assignment, type Add Assignment.")
+            print("* To view assignment progress, type Assignments.")
+            print("* To view recent activity, type Activity.")
+            print("* To find and edit a student's password, type Find Password.")
+            print("* To change a student's points, type Change Points.")
+            print("* To add student messages, type Talk.")
+            print("* To create a lesson, type Create Lesson.")
+            print("* To log out, type Quit.")
             Input = input("What do you want to do?").lower()
             if Input == "add student":
                 Points.append(0)
-                f=open(os.path.join(schooldatapath, "Points.txt"),"w+")
-                i = 0
-                while i < len(Points):
-                    Message = str(Points[i]) + "\n"
-                    f.write(Message)
-                    i = i + 1
-                f.close()
+                save_values(schooldatapath, "Points.txt", Points)
+
                 OpenMessages.append("Hi!")
-                f=open(os.path.join(schooldatapath, "OpenMessages.txt"),"w+")
-                i = 0
-                while i < len(OpenMessages):
-                    Message = str(OpenMessages[i]) + "\n"
-                    f.write(Message)
-                    i = i + 1
-                f.close()
+                save_values(schooldatapath, "OpenMessages.txt", OpenMessages)
+                    
                 Students.append(input("What is the student's name?"))
-                f=open(os.path.join(schooldatapath, "Users.txt"),"w+")
-                i = 0
-                while i < len(Students):
-                    Message = str(Students[i]) + "\n"
-                    f.write(Message)
-                    i = i + 1
-                f.close()
+                save_values(schooldatapath, "Users.txt", Students)
+                    
                 Passwords.append(input("Set a password for the student."))
-                f=open(os.path.join(schooldatapath, "Passwords.txt"),"w+")
-                i = 0
-                while i < len(Passwords):
-                    Message = str(Passwords[i]) + "\n"
-                    f.write(Message)
-                    i = i + 1
-                f.close()
+                save_values(schooldatapath, "Passwords.txt", Passwords)
+
                 Activity.append("You added " + Students[len(Students) - 1] + "to the class.")
-                f=open(os.path.join(schooldatapath, "Activity.txt"),"w+")
-                i = 0
-                while i < len(Activity):
-                    Message = str(Activity[i]) + "\n"
-                    f.write(Message)
-                    i = i + 1
-                f.close()
+                save_values(schooldatapath, "Activity.txt", Activity)
+
                 print("Student set!")
             elif Input == "delete student":
                 StudentToDelete = input("Who do you want to delete?")
