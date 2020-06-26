@@ -149,48 +149,12 @@ while True:
                             if Assignments[i] == StudentToDelete:
                                 del Assignments[i]
                         Activity.append("You deleted " + StudentToDelete + " from the class.")
-                        f=open(os.path.join(schooldatapath, "Activity.txt"),"w+")
-                        i = 0
-                        while i < len(Activity):
-                            Message = str(Activity[i]) + "\n"
-                            f.write(Message)
-                            i = i + 1
-                        f.close()
-                        f=open(os.path.join(schooldatapath, "Points.txt"),"w+")
-                        i = 0
-                        while i < len(Points):
-                            Message = str(Points[i]) + "\n"
-                            f.write(Message)
-                            i = i + 1
-                        f.close()
-                        f=open(os.path.join(schooldatapath, "OpenMessages.txt"),"w+")
-                        i = 0
-                        while i < len(OpenMessages):
-                            Message = str(OpenMessages[i]) + "\n"
-                            f.write(Message)
-                            i = i + 1
-                        f.close()
-                        f=open(os.path.join(schooldatapath, "Users.txt"),"w+")
-                        i = 0
-                        while i < len(Students):
-                            Message = str(Students[i]) + "\n"
-                            f.write(Message)
-                            i = i + 1
-                        f.close()
-                        f=open(os.path.join(schooldatapath, "Passwords.txt"),"w+")
-                        i = 0
-                        while i < len(Passwords):
-                            Message = str(Passwords[i]) + "\n"
-                            f.write(Message)
-                            i = i + 1
-                        f.close()
-                        f=open(os.path.join(schooldatapath, "Assignments.txt"),"w+")
-                        i = 0
-                        while i < len(Assignments):
-                            Message = str(Assignments[i]) + "\n"
-                            f.write(Message)
-                            i = i + 1
-                        f.close()
+                        save_values(schooldatapath, "Activity.txt", Activity)
+                        save_values(schooldatapath, "Points.txt", Points)
+                        save_values(schooldatapath, "OpenMessages.txt", OpenMessages)
+                        save_values(schooldatapath, "Users.txt", Students)
+                        save_values(schooldatapath, "Passwords.txt", Passwords)
+                        save_values(schooldatapath, "Assignments.txt", Assignments)
                         print("Student sucsessfully deleted.")
                         
                 else:
@@ -209,30 +173,19 @@ while True:
                     ChosenPupil = input("Who do you want to set the assignment for? To add the whole school, type All. If you are finished, type Done.")
                     if ChosenPupil in Students:
                         Assignments.append(ChosenPupil)
-                    elif ChosenPupil == "Done":
+                    elif ChosenPupil.lower() == "done":
                         break
-                    elif ChosenPupil == "All":
+                    elif ChosenPupil.lower() == "all":
                         i = 1
                         while i < len(Students):
                             Assignments.append(Students[i])
                             i = i + 1
                     else:
                         print("That is not a student.")
-                f=open(os.path.join(schooldatapath, "Assignments.txt"),"w+")
-                i = 0
-                while i < len(Assignments):
-                    Message = str(Assignments[i]) + "\n"
-                    f.write(Message)
-                    i = i + 1
-                f.close()
+                save_values(schooldatapath, "Assignments.txt", Assignments)
                 Activity.append("Added assignment " + ChosenLesson + ".")
-                f=open(os.path.join(schooldatapath, "Activity.txt"),"w+")
-                i = 0
-                while i < len(Activity):
-                    Message = str(Activity[i]) + "\n"
-                    f.write(Message)
-                    i = i + 1
-                f.close()
+                save_values(schooldatapath, "Activity.txt", Activity)
+
             elif Input == "quit":
                 break
             elif Input == "assignments":
@@ -247,13 +200,7 @@ while True:
                                 del Assignments[i]
                                 i = i - 1
                     i = i + 1
-                f=open(os.path.join(schooldatapath, "Assignments.txt"),"w+")
-                i = 0
-                while i < len(Assignments):
-                    Message = str(Assignments[i]) + "\n"
-                    f.write(Message)
-                    i = i + 1
-                f.close()
+                save_values(schooldatapath, "Activity.txt", Activity)
                 print("These are the assignments and students who haven't completed them.")
                 if len(Assignments) == 0:
                     print("There are no assignments still in progress.")
@@ -279,20 +226,8 @@ while True:
                 if input("Do you want to change it?").lower() == "yes":
                     Passwords[Students.index(ChosenPupil)] = input("What do you want to change it to?")
                     Activity.append(ChosenPupil + "'s password was changed to " + Passwords[Students.index(ChosenPupil)] + ".")
-                    f=open(os.path.join(schooldatapath, "Passwords.txt"),"w+")
-                    i = 0
-                    while i < len(Passwords):
-                        Message = str(Passwords[i]) + "\n"
-                        f.write(Message)
-                        i = i + 1
-                    f.close()
-                    f=open(os.path.join(schooldatapath, "Activity.txt"),"w+")
-                    i = 0
-                    while i < len(Activity):
-                        Message = str(Activity[i]) + "\n"
-                        f.write(Message)
-                        i = i + 1
-                    f.close()
+                    save_values(schooldatapath, "Passwords.txt", Passwords)
+                    save_values(schooldatapath, "Activity.txt", Activity)
             elif Input == "change points":
                 while True:
                     ChosenPupil = input("Whose points do you want to change?")
@@ -303,20 +238,8 @@ while True:
                 ChangeNumber = int(input("How many points do you want to change it by?"))
                 Points[Students.index(ChosenPupil)] = int(Points[Students.index(ChosenPupil)]) + ChangeNumber
                 Activity.append(ChosenPupil + "'s points were changed by " + str(ChangeNumber) + ".")
-                f=open(os.path.join(schooldatapath, "Points.txt"),"w+")
-                i = 0
-                while i < len(Points):
-                    Message = str(Points[i]) + "\n"
-                    f.write(Message)
-                    i = i + 1
-                f.close()
-                f=open(os.path.join(schooldatapath, "Activity.txt"),"w+")
-                i = 0
-                while i < len(Activity):
-                    Message = str(Activity[i]) + "\n"
-                    f.write(Message)
-                    i = i + 1
-                f.close()
+                save_values(schooldatapath, "Points.txt", Points)
+                save_values(schooldatapath, "Activity.txt", Activity)
             elif Input == "talk":
                 while True:
                     ChosenPupil = input("Whose message do you want to change?")
@@ -325,26 +248,18 @@ while True:
                     print("That isn't a student.")
                 OpenMessages[Students.index(ChosenPupil)] = input("What should your new message be?")
                 Activity.append(User + " sent a new message to " + ChosenPupil + ":" + OpenMessages[Students.index(ChosenPupil)])
-                f=open(os.path.join(schooldatapath, "OpenMessages.txt"),"w+")
-                i = 0
-                while i < len(OpenMessages):
-                    Message = str(OpenMessages[i]) + "\n"
-                    f.write(Message)
-                    i = i + 1
-                f.close()
-                f=open(os.path.join(schooldatapath, "Activity.txt"),"w+")
-                i = 0
-                while i < len(Activity):
-                    Message = str(Activity[i]) + "\n"
-                    f.write(Message)
-                    i = i + 1
-                f.close()
+                save_values(schooldatapath, "OpenMessages.txt", OpenMessages)
+                save_values(schooldatapath, "Activity.txt", Activity)
             elif Input == "create lesson":
                 LessonName = input("What should you call your lesson?")
                 NewLessonData = []
                 while True:
-                    Input = input("What is next in the lesson? For text, type normally. For a question, start with --Q and put the answer in the next turn all lowercase. For a motivational message, type --M. For a motivational game, type --G. Type Done when finished.")
-                    if Input == "Done":
+                    print("* To add text, literally type the text.")
+                    print("* To add a question, type --Q followed by your question. The next thing you type must be your answer, in lowercase.")
+                    print("* To add a randomly-generated motivational message, type --M.")
+                    print("* To add a motivational and eductational game, type --G.")
+                    Input = input("What is next in the lesson?")
+                    if Input.lower() == "done":
                         break
                     NewLessonData.append(Input)
                 f=open(os.path.join(lessonpath, LessonName + ".txt"),"w+")
@@ -359,18 +274,12 @@ while True:
                 f.write(Message)
                 f.close()
                 Activity.append(User + " created the lesson:" + LessonName)
-                f=open(os.path.join(schooldatapath, "Activity.txt"),"w+")
-                i = 0
-                while i < len(Activity):
-                    Message = str(Activity[i]) + "\n"
-                    f.write(Message)
-                    i = i + 1
-                f.close()
+                save_values(schooldatapath, "Activity.txt", Activity)
                 print("Lesson created. To use it, quit the whole application then log back in.")
             else:
                 print("I do not recognise that.")
         else:
-            print("Hello", User, "! To do an assignment, write Assignment. To practice, write Practice. To talk to", Students[0],", write Talk. To log out, type Quit.")
+            print("Hello", User, "!")
             i = 0
             CurrentPointWinner = "No-one"
             NumberForLeadingPoints = 0
@@ -387,6 +296,10 @@ while True:
             else:
                 print("You have " + (Points[Students.index(User)]) + " points. With a bit more practice, could you take the lead?")
             print(Students[0] + "'s message: " + OpenMessages[Students.index(User)])
+            print("* To practice, type Practice.")
+            print("* To do an assignment, type Assignments.")
+            print("* To talk to ", Students[0], ", type Talk.")
+            print("* To log out, type Quit.")
             Input = input("So what shall we do?").lower()
             if Input == "talk":
                 Message = input("What do you want to say?")
@@ -512,7 +425,7 @@ while True:
                 f.close()
             elif Input == "quit":
                 break
-            elif Input == "assignment":
+            elif Input == "assignments":
                 i = 0
                 ValidAssignments = []
                 while i < len(Assignments):
@@ -633,13 +546,7 @@ while True:
                     f.write(Message)
                     f.close()
                     Points[Students.index(User)] = str(int(Points[Students.index(User)]) + 1)
-                    f=open(os.path.join(schooldatapath, "Points.txt"),"w+")
-                    i = 0
-                    while i < len(Points):
-                        Message = str(Points[i]) + "\n"
-                        f.write(Message)
-                        i = i + 1
-                    f.close()
+                    save_values(schooldatapath, "Points.txt", Points)
                     i = Assignments.index("---"+ChosenLesson)
                     i = 0
                     while True:
@@ -647,12 +554,6 @@ while True:
                         if Assignments[i] == User:
                             del Assignments[i]
                             break
-                    f=open(os.path.join(schooldatapath, "Assignments.txt"),"w+")
-                    i = 0
-                    while i < len(Assignments):
-                        Message = str(Assignments[i]) + "\n"
-                        f.write(Message)
-                        i = i + 1
-                    f.close()
+                    save_values(schooldatapath, "Assignments.txt", Assignments)
             else:
                 print("I don't recognise that. Try again.")
