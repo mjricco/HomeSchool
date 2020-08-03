@@ -1,5 +1,6 @@
 import os.path
 import random
+from tkinter import Tk, simpledialog, messagebox
 
 def save_values(path, file_name, values):
     """saves provide files to file"""
@@ -19,19 +20,21 @@ f1 = f.readlines()
 QuitApplication = False
 for x in f1:
     Lessons.append(x.replace("\n",""))
+print("HomeSchool")
+root = Tk()
+root.withdraw()
 while True:
-    print("HomeSchool")
     while True:
-        School = input("What school are you in? If you would like to create a new school, type Create. To quit the application, type Quit.").lower()
+        School = simpledialog.askstring("Sign-In","What school are you in? If you would like to create a new school, type Create. To quit the application, type Quit.").lower()
         if os.path.exists(School) and School != "lessons":
             break
         elif School == "create":
-            NewSchool = input("What is your school's name?").lower()
+            NewSchool = simpledialog.askstring("School Creation","What is your school's name?").lower()
             if not os.path.exists(NewSchool) and not NewSchool == "quit":
                 os.mkdir(NewSchool)
                 schooldatapath = os.path.join(gamepath, NewSchool)
-                TeacherName = input("What is your name, as students know you?")
-                TeacherPassword = input("Give yourself a password.")
+                TeacherName = simpledialog.askstring("Account Creation","What is your name, as students know you?")
+                TeacherPassword = simpledialog.askstring("Account Creation","Give yourself a password.")
                 f= open(os.path.join(schooldatapath, "Activity.txt"), "w+")
                 f.close()
                 f= open(os.path.join(schooldatapath, "Assignments.txt"), "w+")
@@ -48,14 +51,14 @@ while True:
                 f= open(os.path.join(schooldatapath, "Users.txt"), "w+")
                 f.write(TeacherName + "\n")
                 f.close()
-                print("School created.")
+                messagebox.showinfo("Account Creation","School created.")
             else:
-                print("That school already exists.")
+                messagebox.showinfo("School Creation","That school already exists.")
         elif School == "quit":
             QuitApplication = True
             break
         else:
-            print("That school does not exist.")
+            messagebox.showinfo("Sign-In","That school does not exist.")
     if QuitApplication:
         break
     schooldatapath = os.path.join(gamepath, School)
@@ -91,16 +94,16 @@ while True:
         OpenMessages.append(x.replace("\n",""))
 
     while True:
-        User = input("Who are you?")
+        User = simpledialog.askstring("Sign-In","Who are you?")
         if User in Students:
             break
-        print("That student does not exist.")
+        messagebox.showinfo("Sign-In","That student does not exist.")
     while True:
-        Password = input("What is the password?")
+        Password = simpledialog.askstring("What is the password?")
         if Password in Passwords:
             if Students.index(User) == Passwords.index(Password):
                 break
-        print("Wrong password.")
+        messagebox.showinfo("Sign-In","Wrong password.")
     while True:
         if Students.index(User) == 0:
             print("Welcome back", User, ".")
